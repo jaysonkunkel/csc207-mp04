@@ -7,7 +7,7 @@ import structures.KeyNotFoundException;
 /**
  * Experiments with our AssociativeArray class.
  *
- * @author Your Name Here
+ * @author Jayson Kunkel
  * @author Samuel A. Rebelsky
  */
 public class AssociativeArrayExperiments {
@@ -23,7 +23,7 @@ public class AssociativeArrayExperiments {
     PrintWriter pen = new PrintWriter(System.out, true);
 
     divider(pen);
-    expreimentStringsToStrings(pen);
+    experimentStringsToStrings(pen);
     divider(pen);
     experimentBigIntToBigInt(pen);
     divider(pen);
@@ -37,7 +37,7 @@ public class AssociativeArrayExperiments {
    * Our first experiment: Associative arrays with strings as both keys 
    * and values.
    */
-  public static void expreimentStringsToStrings(PrintWriter pen) {
+  public static void experimentStringsToStrings(PrintWriter pen) {
     AssociativeArray<String,String> s2s = 
       new ReportingAssociativeArray<String,String>("s2s", pen);
     s2s.size();
@@ -56,7 +56,8 @@ public class AssociativeArrayExperiments {
     s2s.size();
     try { s2s.get("a"); } catch (Exception e) { }
     try { s2s.get("A"); } catch (Exception e) { }
-  } // expreimentStringsToStrings
+
+  } // experimentStringsToStrings
 
   /**
    * Our second experiment: Associative arrays with big integers as
@@ -109,7 +110,5 @@ public class AssociativeArrayExperiments {
     pen.println("------------------------------------------------");
     pen.println();
   } // divider(PrintWriter)
-
-
 
 } // AssociativeArrayExperiments
