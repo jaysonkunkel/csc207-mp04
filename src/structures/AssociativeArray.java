@@ -68,6 +68,7 @@ public class AssociativeArray<K, V> {
    */
   public String toString() {
 
+    // if the array is empty
     if(this.size == 0){
       return "{}";
     } // if
@@ -93,11 +94,13 @@ public class AssociativeArray<K, V> {
    * get(key) will return value.
    */
   public void set(K key, V value) {
-    // if the array is full, expand it, set desired KV pairat first open index
-    if(this.isFull()){
+    // if the array is full, expand it, set desired KV pair at first open index
+    if(this.isFull() && !this.hasKey(key)){
       this.expand();
-      this.pairs[++this.size].key = key;
-      this.pairs[this.size].value = value;
+      // this.pairs[++this.size].key = key;
+      // this.pairs[this.size].value = value;
+      this.size++;
+      this.pairs[size] = new KVPair<K,V> (key, value);
     } // if
     else{
       // search for the first null index or existing key, and set given KV pair
@@ -136,6 +139,7 @@ public class AssociativeArray<K, V> {
    *                              array.
    */
   public V get(K key) throws KeyNotFoundException {
+    // check each pair for matching key
     for (KVPair<K,V> kvPair : pairs) {
       if(kvPair != null && kvPair.key.equals(key)){
         return kvPair.value;
@@ -148,6 +152,7 @@ public class AssociativeArray<K, V> {
    * Determine if key appears in the associative array.
    */
   public boolean hasKey(K key) {
+    // check each pair for matching key
     for (KVPair<K,V> kvPair : pairs) {
       if(kvPair != null && kvPair.key.equals(key)){
         return true;
@@ -213,12 +218,15 @@ public class AssociativeArray<K, V> {
    * If no such entry is found, throws an exception.
    */
   public int find(K key) throws KeyNotFoundException {
+    // search each key for desired pair
     for(int i = 0; i < this.pairs.length; i++){
       if(this.pairs[i] != null && this.pairs[i].key.equals(key)){
+        // return index of key, if it exists
         return i;
       }
     }
-    throw new KeyNotFoundException();
+    // otherwise throw an exception
+    throw new KeyNotFoundException("Given key does not appear in the associative array.");
   } // find(K)
 
 } // class AssociativeArray
