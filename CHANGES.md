@@ -1,0 +1,2 @@
+1. Changed set() in AssociativeArray.java to not increase the size when replacing an existing pair.
+2. Changed clone() in AssociativeArray.java so that changes to the cloned object do not affect the original object.
