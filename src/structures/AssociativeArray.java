@@ -1,6 +1,7 @@
 package structures;
 
 import static java.lang.reflect.Array.newInstance;
+import java.util.Arrays;
 
 /**
  * A basic implementation of Associative Arrays with keys of type K
@@ -53,13 +54,41 @@ public class AssociativeArray<K, V> {
   // | Standard Methods |
   // +------------------+
 
+  // /**
+  //  * Create a copy of this AssociativeArray.
+  //  */
+  // public AssociativeArray<K, V> clone() {
+  //   AssociativeArray<K, V> arr = new AssociativeArray<K, V>();
+  //   arr.size = this.size;
+  //   arr.pairs = Arrays.copyOf(this.pairs, this.pairs.length);
+  //   return arr;
+  // } // clone()
+
   /**
-   * Create a copy of this AssociativeArray.
+   * Create a copy of this AssociativeArray. Changes to the copy do not affect the original.
+   * 
+   * @return a copy of this AssociativeArray.
    */
   public AssociativeArray<K, V> clone() {
     AssociativeArray<K, V> arr = new AssociativeArray<K, V>();
+
+    // size of the two arrays are the same
     arr.size = this.size;
-    arr.pairs = this.pairs;
+    // copy over elements of original array
+    arr.pairs = Arrays.copyOf(this.pairs, this.pairs.length);
+
+    // loop thru original array and create new KVPairs for the copy
+    for (int i = 0; i < this.pairs.length; i++) {
+      KVPair<K,V> p = this.pairs[i];
+      if(p != null) {
+        // create a new KVPair to ensure changes do not affect original
+        arr.pairs[i] = p.clone();
+      } // if
+      else{
+        // keeps the structure of orignal array without referencing original null values
+        arr.pairs[i] = null;
+      } // else
+    } // for
     return arr;
   } // clone()
 
@@ -100,7 +129,7 @@ public class AssociativeArray<K, V> {
       // this.pairs[++this.size].key = key;
       // this.pairs[this.size].value = value;
       this.size++;
-      this.pairs[size] = new KVPair<K,V> (key, value);
+      this.pairs[this.size] = new KVPair<K,V> (key, value);
     } // if
     else{
       // search for the first null index or existing key, and set given KV pair
@@ -119,7 +148,7 @@ public class AssociativeArray<K, V> {
           foundDup = true;
           this.pairs[i].key = key;
           this.pairs[i].value = value;
-          size++;  
+          //size++;  
         } // if
       } // for
 
